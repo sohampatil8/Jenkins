@@ -1,0 +1,33 @@
+###To run Jenkins Container:
+'''
+docker run -d ^
+  --name jenkins ^
+  -p 8080:8080 -p 50000:50000 ^
+  -v jenkins_home:/var/jenkins_home ^
+  -v /var/run/docker.sock:/var/run/docker.sock ^
+  jenkins/jenkins:lts
+'''
+###Enter to Jenkins container:
+'''
+docker exec -u 0 -it jenkins bash
+'''
+
+###Run Commands to update/install docker inside the container:
+'''
+apt update
+apt install -y docker.io
+'''
+'''
+exit
+docker restart jenkins
+'''
+###Fix permission about jenkins server
+'''
+docker exec -u 0 -it jenkins bash
+'''
+'''
+ls -ltr /var/run/docker.sock
+chmod 666 /var/run/docker.sock
+chown root:jenkins /var/run/docker.sock
+docker --version
+'''
